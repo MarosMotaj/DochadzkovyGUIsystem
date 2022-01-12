@@ -13,6 +13,7 @@ class RFID:
     def __init__(self, device_name):
 
         self.device_name = device_name
+        self.detected_chip_number = None
         self.line_name = None
         GPIO.setwarnings(False)
         self.continue_reading = True
@@ -44,9 +45,9 @@ class RFID:
             if status == self.MIFAREReader.MI_OK:
 
                 try:
-                    detected_chip_number = str(uid[0]) + "-" + str(uid[1]) + "-" + str(uid[2]) + "-" + str(
+                    self.detected_chip_number = str(uid[0]) + "-" + str(uid[1]) + "-" + str(uid[2]) + "-" + str(
                         uid[3]) + "-" + str(uid[4])
-                    if self.sql.check_chip_number(detected_chip_number)[1] is False:
+                    if self.sql.check_chip_number(self.detected_chip_number)[1] is False:
                         print("Karta nerozpoznana")
                         print("ID:" + str(uid[0]) + "-" + str(uid[1]) + "-" + str(uid[2]) + "-" + str(
                             uid[3]) + '-' + str(
@@ -58,7 +59,6 @@ class RFID:
                             uid[3]) + '-' + str(
                             uid[4]))
                         print("Karta rozpoznana")
-                        time.sleep(1)
                         return True
 
                         # self.lcd.lcd_print_data("Stlac prichod/odchod", 0, 2)
