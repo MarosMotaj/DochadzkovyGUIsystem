@@ -17,7 +17,7 @@ class App(tk.Tk):
         self.geometry("345x200")
 
         # objekty
-        self.sql = SQL("34.116.128.160", "rpi_i_s_u", "rpi_i_s_u", "RPI_ATTEND")
+        self.sql = SQL("", "", "", "")
         self.rfid = RFID("AA1")
 
         # premenne
